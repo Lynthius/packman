@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.querySelector(".grid");
   const scoreDisplay = document.getElementById("score");
   const width = 28; // 28 x 28 = 784
+  let score = 0;
 
   // Layout of grid
   const layout = [
@@ -103,7 +104,65 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
     squares[pacmanCurrentIndex].classList.add("pac-man");
+
+    pacEatDot();
   }
 
   document.addEventListener("keyup", movePacman);
+
+  // Eating pac-dots result
+  function pacEatDot() {
+    if (squares[pacmanCurrentIndex].classList.contains("pac-dot")) {
+      score++;
+      scoreDisplay.innerHTML = score;
+      squares[pacmanCurrentIndex].classList.remove("pac-dot");
+    }
+  } 
+
+  // Create ghosts template
+  class Ghost {
+    constructor(className, startIndex, speed) {
+      this.className = className;
+      this.startIndex = startIndex;
+      this.speed = speed;
+      this.currentIndex = startIndex;
+      this.timeId = NaN;
+    }
+  }
+
+  ghosts = [
+    new Ghost('blinky', 348, 250),
+    new Ghost('pinky', 376, 400),
+    new Ghost('inky', 351, 300),
+    new Ghost('clyde', 379, 500)
+  ]
+
+  // Draw ghosts on grid
+  ghosts.forEach(ghost => {
+     squares[ghost.currentIndex].classList.add(ghost.className);
+     squares[ghost.currentIndex].classList.add('ghost');
+  })
+
+  // Move all the ghosts randomly
+  ghosts.forEach(ghost => moveGhost(ghost))
+
+  // Moving function
+  function moveGhost(ghost) {
+    const directions = [-1, +1, width, -width];
+    let direction = directions[Math.floor(Math.random() * directions.length)];
+
+    ghost.timerId = setInterval(function () {
+      // if not a wall or a ghost
+      if (!squares[ghost.currentIndex + direction].classList.contains('wall') && !squares[ghost.currentIndex + direction].classList.contains('ghost')) {
+        // remove all ghosts classes 
+        squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost');
+        // go here
+        ghost.currentIndex += direction;
+        squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
+        // else find new direction
+      } else direction = directions[Math.floor(Math.random() * directions.length)]
+
+    }, ghost.speed)
+  }
+
 });

@@ -77,7 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex - 1].classList.contains("wall") && !squares[pacmanCurrentIndex - 1].classList.contains("ghost-lair")) pacmanCurrentIndex -= 1;
         console.log(pacmanCurrentIndex);
 
-        
+        // Check if pacman is in the left exit
+        if (pacmanCurrentIndex % width === 0) pacmanCurrentIndex += width - 1;
+
         break;
       // up arrow
       case 38:
@@ -88,6 +90,10 @@ document.addEventListener("DOMContentLoaded", () => {
       case 39:
         if (pacmanCurrentIndex % width < width - 1 && !squares[pacmanCurrentIndex + 1].classList.contains("wall") && !squares[pacmanCurrentIndex + 1].classList.contains("ghost-lair")) pacmanCurrentIndex += 1;
         console.log(pacmanCurrentIndex);
+
+        // Check if pacman is in the right exit
+        if (pacmanCurrentIndex % width === width - 1) pacmanCurrentIndex -= width - 1;
+
         break;
       // down arrow
       case 40:

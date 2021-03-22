@@ -75,27 +75,47 @@ document.addEventListener("DOMContentLoaded", () => {
     switch (e.keyCode) {
       // left arrow
       case 37:
-        if (pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex - 1].classList.contains("wall") && !squares[pacmanCurrentIndex - 1].classList.contains("ghost-lair")) pacmanCurrentIndex -= 1;
+        if (
+          pacmanCurrentIndex % width !== 0 &&
+          !squares[pacmanCurrentIndex - 1].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex - 1].classList.contains("ghost-lair")
+          )
+          pacmanCurrentIndex -= 1;
 
         // Check if pacman is in the left exit
         if (pacmanCurrentIndex % width === 0) pacmanCurrentIndex += width - 1;
-
         break;
+
       // up arrow
       case 38:
-        if (pacmanCurrentIndex - width >= 0 && !squares[pacmanCurrentIndex - width].classList.contains("wall") && !squares[pacmanCurrentIndex - width].classList.contains("ghost-lair")) pacmanCurrentIndex -= width;
+        if (
+          pacmanCurrentIndex - width >= 0 &&
+          !squares[pacmanCurrentIndex - width].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex - width].classList.contains("ghost-lair")
+          )
+          pacmanCurrentIndex -= width;
         break;
+
       // right arrow
       case 39:
-        if (pacmanCurrentIndex % width < width - 1 && !squares[pacmanCurrentIndex + 1].classList.contains("wall") && !squares[pacmanCurrentIndex + 1].classList.contains("ghost-lair")) pacmanCurrentIndex += 1;
+        if (
+          pacmanCurrentIndex % width < width - 1 &&
+          !squares[pacmanCurrentIndex + 1].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex + 1].classList.contains("ghost-lair")
+          )
+          pacmanCurrentIndex += 1;
 
         // Check if pacman is in the right exit
         if (pacmanCurrentIndex % width === width - 1) pacmanCurrentIndex -= width - 1;
-
         break;
+
       // down arrow
       case 40:
-        if (pacmanCurrentIndex + width < width * width && !squares[pacmanCurrentIndex + width].classList.contains("wall") && !squares[pacmanCurrentIndex + width].classList.contains("ghost-lair"))
+        if (
+          pacmanCurrentIndex + width < width * width &&
+          !squares[pacmanCurrentIndex + width].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex + width].classList.contains("ghost-lair")
+          )
           pacmanCurrentIndex += width;
         break;
     }
@@ -191,8 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
         squares[ghost.currentIndex].classList.add(ghost.className, 'ghost');
       }
       checkGameOver ();
-      checkForWin ()
-
     }, ghost.speed)
   }
 
@@ -201,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (squares[pacmanCurrentIndex].classList.contains('ghost') && !squares[pacmanCurrentIndex].classList.contains('scared-ghost')) {
       ghosts.forEach(ghost => clearInterval(ghost.timeId));
       document.removeEventListener('keyup', movePacman);
-      // setTimeout(function () {alert('Game Over!')}, 500);
+      // setTimeout(function(){ alert("Game Over"); }, 500)
       scoreDisplay.innerHTML = 'Game Over!';
   }
 }
@@ -211,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (score === 274) {
       ghosts.forEach(ghost => clearInterval(ghost.timeId));
       document.removeEventListener('keyup', movePacman);
-      // setTimeout(function () {alert('You won')}, 500);
+      // setTimeout(function(){ alert("You have WON!"); }, 500)
       scoreDisplay.innerHTML = 'You won!';
   }
 }

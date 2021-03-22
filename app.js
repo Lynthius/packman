@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // left arrow
       case 37:
         if (pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex - 1].classList.contains("wall") && !squares[pacmanCurrentIndex - 1].classList.contains("ghost-lair")) pacmanCurrentIndex -= 1;
-        console.log(pacmanCurrentIndex);
 
         // Check if pacman is in the left exit
         if (pacmanCurrentIndex % width === 0) pacmanCurrentIndex += width - 1;
@@ -85,12 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // up arrow
       case 38:
         if (pacmanCurrentIndex - width >= 0 && !squares[pacmanCurrentIndex - width].classList.contains("wall") && !squares[pacmanCurrentIndex - width].classList.contains("ghost-lair")) pacmanCurrentIndex -= width;
-        console.log(pacmanCurrentIndex);
         break;
       // right arrow
       case 39:
         if (pacmanCurrentIndex % width < width - 1 && !squares[pacmanCurrentIndex + 1].classList.contains("wall") && !squares[pacmanCurrentIndex + 1].classList.contains("ghost-lair")) pacmanCurrentIndex += 1;
-        console.log(pacmanCurrentIndex);
 
         // Check if pacman is in the right exit
         if (pacmanCurrentIndex % width === width - 1) pacmanCurrentIndex -= width - 1;
@@ -100,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
       case 40:
         if (pacmanCurrentIndex + width < width * width && !squares[pacmanCurrentIndex + width].classList.contains("wall") && !squares[pacmanCurrentIndex + width].classList.contains("ghost-lair"))
           pacmanCurrentIndex += width;
-        console.log(pacmanCurrentIndex);
         break;
     }
     squares[pacmanCurrentIndex].classList.add("pac-man");
